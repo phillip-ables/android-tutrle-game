@@ -17,17 +17,22 @@ public class SwimmingTurtleView extends View {
 
     private Paint scorePaint = new Paint();
 
+    private Bitmap life[] = new Bitmap[2];
+
     public SwimmingTurtleView(Context context){
         super(context);
 
-        turtle = new BitmapFactory().decodeResource(getResources(), R.drawable.fish1);
+        turtle = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
 
-        backgroundImage = new BitmapFactory().decodeResource(getResources(), R.drawable.background);
+        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
         scorePaint.setColor(Color.WHITE);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
+
+        life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.hearts);
+        life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.heart_grey);
     }
 
     @Override
