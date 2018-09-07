@@ -40,5 +40,11 @@ public class SwimmingTurtleView extends View {
         super.onDraw(canvas);
 
         canvas.drawBitmap(turtle, 0,0,null);
+        canvas.drawBitmap(backgroundImage,0,0,null);
+        canvas.drawText("Score : ", 20,60,scorePaint);
+
+        canvas.drawBitmap(life[0], 580,10,null);
+        canvas.drawBitmap(life[0], 680,10,null);
+        canvas.drawBitmap(life[0], 780,10,null);
     }
 }
