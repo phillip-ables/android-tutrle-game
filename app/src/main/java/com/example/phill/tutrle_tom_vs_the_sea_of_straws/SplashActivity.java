@@ -1,5 +1,6 @@
 package com.example.phill.tutrle_tom_vs_the_sea_of_straws;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -15,7 +16,22 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
+
+                try
+                {
+                    sleep(5000);
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    Intent mainIntent = new Intent (SplashActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                }
             }
         };
+        thread.start();
     }
 }
