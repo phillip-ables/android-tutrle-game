@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class SwimmingTurtleView extends View {
@@ -17,6 +18,8 @@ public class SwimmingTurtleView extends View {
     private int turtleSpeed;
 
     private int canvasWidth, canvasHeight;
+
+    private boolean touch = false;
 
     private Bitmap backgroundImage;
 
@@ -58,6 +61,17 @@ public class SwimmingTurtleView extends View {
         if(turtleY > maxTurtleY){
             turtleY = maxTurtleY;
         }
+        turtleSpeed = turtleSpeed + 2;
+
+        if(touch)
+        {
+            canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
+            touch = false;
+        }
+        else
+        {
+            canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
+        }
 
         canvas.drawBitmap(backgroundImage,0,0,null);
         canvas.drawText("Score : ", 20,60,scorePaint);
@@ -65,5 +79,16 @@ public class SwimmingTurtleView extends View {
         canvas.drawBitmap(life[0], canvasWidth-300,10,null);
         canvas.drawBitmap(life[0], canvasWidth-200,10,null);
         canvas.drawBitmap(life[0], canvasWidth-100,10,null);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            touch = true;
+
+            turtleSpeed = -22;
+        }
+        return true;
     }
 }
