@@ -47,6 +47,18 @@ public class SwimmingTurtleView extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
+        int minTurtleY = turtle[0].getHeight();
+        int maxTurtleY = canvasHeight - turtle[0].getHeight() * 3;
+        turtleY = turtleY + turtleSpeed;
+
+        //Turtle Goes Off Screen
+        if(turtleY < minTurtleY){
+            turtleY = minTurtleY;
+        }
+        if(turtleY > maxTurtleY){
+            turtleY = maxTurtleY;
+        }
+
         canvas.drawBitmap(backgroundImage,0,0,null);
         canvas.drawText("Score : ", 20,60,scorePaint);
 
