@@ -11,7 +11,12 @@ import android.view.View;
 
 public class SwimmingTurtleView extends View {
 
-    private Bitmap turtle;
+    private Bitmap turtle[] = new Bitmap[2];
+    private int turtleX = 10;
+    private int turtleY;
+    private int turtleSpeed;
+
+    private int canvasWidth, canvasHeight;
 
     private Bitmap backgroundImage;
 
@@ -22,7 +27,8 @@ public class SwimmingTurtleView extends View {
     public SwimmingTurtleView(Context context){
         super(context);
 
-        turtle = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
+        turtle[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
+        turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
@@ -38,13 +44,14 @@ public class SwimmingTurtleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvasWidth = canvas.getWidth();
+        canvasHeight = canvas.getHeight();
 
-        canvas.drawBitmap(turtle, 0,0,null);
         canvas.drawBitmap(backgroundImage,0,0,null);
         canvas.drawText("Score : ", 20,60,scorePaint);
 
-        canvas.drawBitmap(life[0], 580,10,null);
-        canvas.drawBitmap(life[0], 680,10,null);
-        canvas.drawBitmap(life[0], 780,10,null);
+        canvas.drawBitmap(life[0], canvasWidth-300,10,null);
+        canvas.drawBitmap(life[0], canvasWidth-200,10,null);
+        canvas.drawBitmap(life[0], canvasWidth-100,10,null);
     }
 }
