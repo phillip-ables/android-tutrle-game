@@ -6,11 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.View;
 
-public class swimmingTurtleView extends View {
+public class SwimmingTurtleView extends View {
 
     private Bitmap turtle;
 
-    public swimmingTurtleView(Context context){
+    public SwimmingTurtleView(Context context){
         super(context);
 
         turtle = new BitmapFactory().decodeResource(getResources(), R.drawable.fish1);
@@ -19,5 +19,7 @@ public class swimmingTurtleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        canvas.drawBitmap(turtle, 0,0,null);
     }
 }
