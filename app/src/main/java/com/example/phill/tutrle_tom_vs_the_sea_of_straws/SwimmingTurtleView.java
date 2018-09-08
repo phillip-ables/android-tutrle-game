@@ -7,14 +7,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class SwimmingTurtleView extends View {
 
     private Bitmap turtle[] = new Bitmap[2];
-    private int turtleX = 10;
-    private int turtleY;
+    private float turtleX = 100;
+    private float turtleY;
     private int turtleSpeed;
 
     private int canvasWidth, canvasHeight;
@@ -42,6 +43,7 @@ public class SwimmingTurtleView extends View {
 
         life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.hearts);
         life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.heart_grey);
+        turtleY = 90;
     }
 
     @Override
@@ -70,7 +72,7 @@ public class SwimmingTurtleView extends View {
         }
         else
         {
-            canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
+            canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
         }
 
         canvas.drawBitmap(backgroundImage,0,0,null);
@@ -79,6 +81,8 @@ public class SwimmingTurtleView extends View {
         canvas.drawBitmap(life[0], canvasWidth-300,10,null);
         canvas.drawBitmap(life[0], canvasWidth-200,10,null);
         canvas.drawBitmap(life[0], canvasWidth-100,10,null);
+
+
     }
 
     @Override
@@ -88,6 +92,8 @@ public class SwimmingTurtleView extends View {
             touch = true;
 
             turtleSpeed = -22;
+            Log.d("posX", turtleX+"");
+            Log.d("speed", turtleSpeed+"");
         }
         return true;
     }
