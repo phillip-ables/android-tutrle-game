@@ -86,7 +86,6 @@ public class SwimmingTurtleView extends View {
         {
             canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
             touch = false;
-            Log.d("touch", touch+"");
         }
         else
         {
@@ -101,6 +100,14 @@ public class SwimmingTurtleView extends View {
         canvas.drawCircle(wormX, wormY, 10, wormPaint);
 
 
+    }
+
+    public boolean collisionChecker(int x, int y){
+        if(turtleX < x && x < (turtleX + turtle[0].getWidth()) &&
+                turtleY < y && y < (turtleY + turtle[0].getHeight())){
+            return true;
+        }
+        return false;
     }
 
     @Override
