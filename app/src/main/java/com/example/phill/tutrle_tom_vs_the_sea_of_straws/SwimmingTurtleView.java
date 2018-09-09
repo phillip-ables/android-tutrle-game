@@ -20,6 +20,13 @@ public class SwimmingTurtleView extends View {
 
     private int canvasWidth, canvasHeight;
 
+    private int wormX, wormY, wormSpeed = 16;
+    //this will be a bitmap later on
+    private Paint wormPaint = new Paint();
+
+    private int starwX, strawY, strawSpeed = 20;
+    private Paint strawPaint = new Paint();
+
     private boolean touch = false;
 
     private Bitmap backgroundImage;
@@ -35,6 +42,9 @@ public class SwimmingTurtleView extends View {
         turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+
+        wormPaint.setColor(Color.YELLOW);
+        wormPaint.setAntiAlias(false);
 
         scorePaint.setColor(Color.WHITE);
         scorePaint.setTextSize(70);
@@ -82,6 +92,13 @@ public class SwimmingTurtleView extends View {
         {
             canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
         }
+
+        wormX = wormX - wormSpeed;
+        if(wormX < 0) {
+            wormX = canvasWidth + 21;
+            wormY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
+        }
+        canvas.drawCircle(wormX, wormY, 10, wormPaint);
 
 
     }
