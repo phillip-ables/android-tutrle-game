@@ -27,6 +27,8 @@ public class SwimmingTurtleView extends View {
     private int starwX, strawY, strawSpeed = 20;
     private Paint strawPaint = new Paint();
 
+    private int score;
+
     private boolean touch = false;
 
     private Bitmap backgroundImage;
@@ -54,6 +56,8 @@ public class SwimmingTurtleView extends View {
         life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.hearts);
         life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.heart_grey);
         turtleY = 500;
+
+        score = 0;
     }
 
     @Override
@@ -76,7 +80,7 @@ public class SwimmingTurtleView extends View {
         turtleSpeed = turtleSpeed + 2;
 
         canvas.drawBitmap(backgroundImage,0,0,null);
-        canvas.drawText("Score : ", 20,60,scorePaint);
+        canvas.drawText("Score : " + score, 20,60,scorePaint);
 
         canvas.drawBitmap(life[0], canvasWidth-300,10,null);
         canvas.drawBitmap(life[0], canvasWidth-200,10,null);
@@ -90,6 +94,11 @@ public class SwimmingTurtleView extends View {
         else
         {
             canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
+        }
+
+        if(collisionChecker(turtleX, turtleY)){
+            score += 10;
+            wormX -= 100;
         }
 
         wormX = wormX - wormSpeed;
