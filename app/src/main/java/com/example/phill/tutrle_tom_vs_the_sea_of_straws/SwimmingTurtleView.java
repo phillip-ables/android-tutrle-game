@@ -24,7 +24,7 @@ public class SwimmingTurtleView extends View {
     //this will be a bitmap later on
     private Paint wormPaint = new Paint();
 
-    private int starwX, strawY, strawSpeed = 20;
+    private int strawX, strawY, strawSpeed = 20;
     private Paint strawPaint = new Paint();
 
     private int score;
@@ -48,6 +48,10 @@ public class SwimmingTurtleView extends View {
         wormPaint.setColor(Color.YELLOW);
         wormPaint.setAntiAlias(false);
 
+        strawPaint.setColor(Color.RED);
+        strawPaint.setAntiAlias(false);
+
+        //NPC's
         scorePaint.setColor(Color.WHITE);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -96,9 +100,11 @@ public class SwimmingTurtleView extends View {
             canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
         }
 
-        if(collisionChecker(turtleX, turtleY)){
+
+        //worm logic
+        if(collisionChecker(wormX, wormY)){
             score += 10;
-            wormX -= 100;
+            wormX -= 300;
         }
 
         wormX = wormX - wormSpeed;
@@ -106,8 +112,19 @@ public class SwimmingTurtleView extends View {
             wormX = canvasWidth + 21;
             wormY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
         }
-        canvas.drawCircle(wormX, wormY, 10, wormPaint);
+        canvas.drawCircle(wormX, wormY, 25, wormPaint);
 
+        //straw logic
+        if(collisionChecker(strawX,strawY)){
+            //change health
+            strawX -= 300;
+        }
+        strawX -= strawSpeed;
+        if(strawX < 0){
+            strawX = canvasWidth + 21;
+            strawY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
+        }
+        canvas.drawCircle(strawX, strawY, 50, strawPaint);
 
     }
 
