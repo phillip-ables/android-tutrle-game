@@ -14,8 +14,8 @@ import android.view.View;
 public class SwimmingTurtleView extends View {
 
     private Bitmap turtle[] = new Bitmap[2];
-    private float turtleX = 100;
-    private float turtleY;
+    private int turtleX = 100;
+    private int turtleY;
     private int turtleSpeed;
 
     private int canvasWidth, canvasHeight;
@@ -43,7 +43,7 @@ public class SwimmingTurtleView extends View {
 
         life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.hearts);
         life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.heart_grey);
-        turtleY = 90;
+        turtleY = 500;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class SwimmingTurtleView extends View {
         canvasHeight = canvas.getHeight();
 
         int minTurtleY = turtle[0].getHeight();
-        int maxTurtleY = canvasHeight - turtle[0].getHeight() * 3;
+        int maxTurtleY = canvasHeight - (turtle[0].getHeight() );
         turtleY = turtleY + turtleSpeed;
 
         //Turtle Goes Off Screen
@@ -65,22 +65,23 @@ public class SwimmingTurtleView extends View {
         }
         turtleSpeed = turtleSpeed + 2;
 
-        if(touch)
-        {
-            canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
-            touch = false;
-        }
-        else
-        {
-            canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
-        }
-
         canvas.drawBitmap(backgroundImage,0,0,null);
         canvas.drawText("Score : ", 20,60,scorePaint);
 
         canvas.drawBitmap(life[0], canvasWidth-300,10,null);
         canvas.drawBitmap(life[0], canvasWidth-200,10,null);
         canvas.drawBitmap(life[0], canvasWidth-100,10,null);
+
+        if(touch)
+        {
+            canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
+            touch = false;
+            Log.d("touch", touch+"");
+        }
+        else
+        {
+            canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
+        }
 
 
     }
@@ -92,8 +93,6 @@ public class SwimmingTurtleView extends View {
             touch = true;
 
             turtleSpeed = -22;
-            Log.d("posX", turtleX+"");
-            Log.d("speed", turtleSpeed+"");
         }
         return true;
     }

@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private SwimmingTurtleView gameView;
 
     private Handler handler = new Handler();
-    private final static long Interval = 30;
+    private final static long Interval = 45;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
