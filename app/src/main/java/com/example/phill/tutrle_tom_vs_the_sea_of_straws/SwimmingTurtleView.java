@@ -1,6 +1,7 @@
 package com.example.phill.tutrle_tom_vs_the_sea_of_straws;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -147,6 +148,9 @@ public class SwimmingTurtleView extends View {
             lifeCounterOFTurtle--;
             if(lifeCounterOFTurtle == 0){
                 Toast.makeText(getContext(), "Game Over", Toast.LENGTH_SHORT).show();
+                Intent gameOverIntent = new Intent(getContext(), GameOverActivity.class);
+                gameOverIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                getContext().startActivity(gameOverIntent);
             }
         }
         strawX -= strawSpeed;
@@ -174,7 +178,9 @@ public class SwimmingTurtleView extends View {
             lifeCounterOFTurtle -= 2;
             if(lifeCounterOFTurtle <= 0){
                 Toast.makeText(getContext(), "Game Over", Toast.LENGTH_SHORT).show();
-            }
+                Intent gameOverIntent = new Intent(getContext(), GameOverActivity.class);
+                gameOverIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                getContext().startActivity(gameOverIntent);            }
         }
         flyingHookX -= flyingHookSpeed;
         if(flyingHookX < 0){
