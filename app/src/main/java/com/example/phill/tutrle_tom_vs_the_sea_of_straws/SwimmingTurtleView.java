@@ -31,6 +31,12 @@ public class SwimmingTurtleView extends View {
     private int magicWormX, magicWormY, magicWormSpeed = 32;
     private Paint magicWormPaint = new Paint();
 
+    //this is going to have a hook case
+    //then falls to its y,
+    //then zooms off
+    private int flyingHookX, flyingHookY, flyingHookSpeed = 35;
+    private Paint flyingHookPaint = new Paint();
+
     private int score;
 
     private boolean touch = false;
@@ -58,6 +64,9 @@ public class SwimmingTurtleView extends View {
 
         magicWormPaint.setColor(Color.GREEN);
         magicWormPaint.setAntiAlias(false);
+
+        flyingHookPaint.setColor(Color.RED);
+        flyingHookPaint.setAntiAlias(false);
 
         //DISPLAYS
         scorePaint.setColor(Color.WHITE);
@@ -141,10 +150,22 @@ public class SwimmingTurtleView extends View {
         }
         magicWormX -= magicWormSpeed;
         if(magicWormX < 0){
-            strawX = canvasWidth + 21;
-            strawY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
+            magicWormX = canvasWidth + 21;
+            magicWormY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
         }
         canvas.drawCircle(magicWormX, magicWormY, 10, magicWormPaint);
+
+        //flying hook logic
+        if(collisionChecker(flyingHookX, flyingHookY)){
+            //change health;
+            flyingHookX -= 300;
+        }
+        flyingHookX -= flyingHookSpeed;
+        if(flyingHookX < 0){
+            flyingHookX = canvasWidth + 21;
+            flyingHookY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
+        }
+        canvas.drawCircle(flyingHookX, flyingHookY, 10, flyingHookPaint);
 
     }
 
