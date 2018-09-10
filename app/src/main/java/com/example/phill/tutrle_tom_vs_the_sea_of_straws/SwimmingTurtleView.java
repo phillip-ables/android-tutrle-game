@@ -20,12 +20,16 @@ public class SwimmingTurtleView extends View {
 
     private int canvasWidth, canvasHeight;
 
+
+    //THESE WILL BE BITMAPS LATER
     private int wormX, wormY, wormSpeed = 16;
-    //this will be a bitmap later on
     private Paint wormPaint = new Paint();
 
     private int strawX, strawY, strawSpeed = 20;
     private Paint strawPaint = new Paint();
+
+    private int magicWormX, magicWormY, magicWormSpeed = 32;
+    private Paint magicWormPaint = new Paint();
 
     private int score;
 
@@ -45,13 +49,17 @@ public class SwimmingTurtleView extends View {
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
+        //NonPlayerCharachters
         wormPaint.setColor(Color.YELLOW);
         wormPaint.setAntiAlias(false);
 
         strawPaint.setColor(Color.RED);
         strawPaint.setAntiAlias(false);
 
-        //NPC's
+        magicWormPaint.setColor(Color.GREEN);
+        magicWormPaint.setAntiAlias(false);
+
+        //DISPLAYS
         scorePaint.setColor(Color.WHITE);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -86,6 +94,7 @@ public class SwimmingTurtleView extends View {
         canvas.drawBitmap(backgroundImage,0,0,null);
         canvas.drawText("Score : " + score, 20,60,scorePaint);
 
+        //HEARTS
         canvas.drawBitmap(life[0], canvasWidth-300,10,null);
         canvas.drawBitmap(life[0], canvasWidth-200,10,null);
         canvas.drawBitmap(life[0], canvasWidth-100,10,null);
@@ -106,7 +115,6 @@ public class SwimmingTurtleView extends View {
             score += 10;
             wormX -= 300;
         }
-
         wormX = wormX - wormSpeed;
         if(wormX < 0) {
             wormX = canvasWidth + 21;
@@ -125,6 +133,18 @@ public class SwimmingTurtleView extends View {
             strawY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
         }
         canvas.drawCircle(strawX, strawY, 50, strawPaint);
+
+        //magicWorm logic
+        if(collisionChecker(magicWormX,magicWormY)){
+            score += 25;
+            magicWormX -= 300;
+        }
+        magicWormX -= magicWormSpeed;
+        if(magicWormX < 0){
+            strawX = canvasWidth + 21;
+            strawY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
+        }
+        canvas.drawCircle(magicWormX, magicWormY, 10, magicWormPaint);
 
     }
 
