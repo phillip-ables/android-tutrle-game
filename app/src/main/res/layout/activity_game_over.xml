@@ -34,4 +34,16 @@
         android:textSize="18sp"
         android:textStyle="bold"/>
 
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playAgainButton"
+        android:layout_marginTop="80dp"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:text="score"
+        android:textColor="@color/colorAccent"
+        android:textAlignment="center"/>
+
 </RelativeLayout>
