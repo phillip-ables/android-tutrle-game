@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class SwimmingTurtleView extends View {
 
@@ -37,7 +38,7 @@ public class SwimmingTurtleView extends View {
     private int flyingHookX, flyingHookY, flyingHookSpeed = 35;
     private Paint flyingHookPaint = new Paint();
 
-    private int score;
+    private int score, lifeCounterOFTurtle;
 
     private boolean touch = false;
 
@@ -79,6 +80,7 @@ public class SwimmingTurtleView extends View {
         turtleY = 500;
 
         score = 0;
+        lifeCounterOFTurtle = 3;
     }
 
     @Override
@@ -133,8 +135,11 @@ public class SwimmingTurtleView extends View {
 
         //straw logic
         if(collisionChecker(strawX,strawY)){
-            //change health
             strawX -= 300;
+            lifeCounterOFTurtle--;
+            if(lifeCounterOFTurtle == 0){
+                Toast.makeText(getContext(), "Game Over", Toast.LENGTH_SHORT).show();
+            }
         }
         strawX -= strawSpeed;
         if(strawX < 0){
@@ -157,8 +162,11 @@ public class SwimmingTurtleView extends View {
 
         //flying hook logic
         if(collisionChecker(flyingHookX, flyingHookY)){
-            //change health;
             flyingHookX -= 300;
+            lifeCounterOFTurtle -= 2;
+            if(lifeCounterOFTurtle <= 0){
+                Toast.makeText(getContext(), "Game Over", Toast.LENGTH_SHORT).show();
+            }
         }
         flyingHookX -= flyingHookSpeed;
         if(flyingHookX < 0){
