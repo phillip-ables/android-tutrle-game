@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Turtle Tom Vs. MAN</string>
+    <!--<string name="app_name">Turtle Tom Vs. MAN</string>-->
+    <string name="app_name">Oh Man Sea</string>
 </resources>
