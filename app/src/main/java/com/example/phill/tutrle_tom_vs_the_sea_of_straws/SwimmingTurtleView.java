@@ -106,9 +106,17 @@ public class SwimmingTurtleView extends View {
         canvas.drawText("Score : " + score, 20,60,scorePaint);
 
         //HEARTS
-        canvas.drawBitmap(life[0], canvasWidth-300,10,null);
-        canvas.drawBitmap(life[0], canvasWidth-200,10,null);
-        canvas.drawBitmap(life[0], canvasWidth-100,10,null);
+        for (int i = 0; i < 3; i++){
+            int x = (int) (canvasWidth - 100 - (100 * i));
+            int y = 10;
+
+            if(i < lifeCounterOFTurtle){
+                canvas.drawBitmap(life[0], x, y, null);
+            }
+            else{
+                canvas.drawBitmap(life[1], x, y, null);
+            }
+        }
 
         if(touch)
         {
