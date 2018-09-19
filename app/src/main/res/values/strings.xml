@@ -1,4 +1,5 @@
 <resources>
     <!--<string name="app_name">Turtle Tom Vs. MAN</string>-->
-    <string name="app_name">Oh Man Sea</string>
+    <string name="app_name">Turtle Swimmer</string>
+    <integer name="frame_duration">200</integer>
 </resources>
