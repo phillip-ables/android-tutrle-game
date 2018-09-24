@@ -8,9 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -21,8 +24,10 @@ public class SwimmingTurtleView extends View {
     //https://www.youtube.com/watch?v=t0thau7RIWA
     //dubstep but the carribean drum instead of the key board
     private RelativeLayout mRelativeLayout;
+    private ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-    private Bitmap turtle[] = new Bitmap[2];
+    //private Bitmap turtle[] = new Bitmap[2];
+    private ImageView ivTurtle;
     private int turtleX = 100;
     private int turtleY;
     private int turtleSpeed;
@@ -31,19 +36,27 @@ public class SwimmingTurtleView extends View {
 
 
     //THESE WILL BE BITMAPS LATER
+    private ImageView ivWorm;
     private int wormX, wormY, wormSpeed = 16;
 
+    private ImageView ivStraw;
     private int strawX, strawY, strawSpeed = 20;
     private Paint strawPaint = new Paint();
 
+    private ImageView ivMagicStraw;
     private int magicWormX, magicWormY, magicWormSpeed = 32;
     private Paint magicWormPaint = new Paint();
 
     //this is going to have a hook case
     //then falls to its y,
     //then zooms off
+    private ImageView ivFlyingHook;
     private int flyingHookX, flyingHookY, flyingHookSpeed = 35;
     private Paint flyingHookPaint = new Paint();
+
+    //background that moves
+    private ImageView ivBackground;
+    private int backgroundX, backgroundY;
 
     private int score, lifeCounterOFTurtle;
 
@@ -59,8 +72,11 @@ public class SwimmingTurtleView extends View {
         super(context);
         mRelativeLayout = findViewById(R.id.relativeLayout);
 
-        turtle[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
-        turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
+        //TURTLE
+        ivTurtle = new ImageView(context);
+
+       // turtle[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
+       // turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
@@ -94,8 +110,8 @@ public class SwimmingTurtleView extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
-        int minTurtleY = turtle[0].getHeight();
-        int maxTurtleY = canvasHeight - (turtle[0].getHeight() );
+        int minTurtleY = ivTurtle.getHeight();
+        int maxTurtleY = canvasHeight - (ivTurtle.getHeight() );
         turtleY = turtleY + turtleSpeed;
 
         //Turtle Goes Off Screen
@@ -125,12 +141,14 @@ public class SwimmingTurtleView extends View {
 
         if(touch)
         {
-            canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
+            ivTurtle.setImageResource(R.drawable.turtle_swim_up);
+            //canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
             touch = false;
         }
         else
         {
-            canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
+            ivTurtle.setImageResource(R.drawable.turtle_swim_idle);
+            //canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
         }
 
 
@@ -146,6 +164,9 @@ public class SwimmingTurtleView extends View {
         }
         //canvas.drawCircle(wormX, wormY, 25, wormPaint);
         //canvas.draw;
+        ivWorm.setImageResource(R.drawable.worm_swim);
+        lp.layoutAnimationParameters()
+        //AnimationDrawable swimming_worm = (AnimationDrawable)ivWorm.getDrawable();
 
         //straw logic
         if(collisionChecker(strawX,strawY)){
