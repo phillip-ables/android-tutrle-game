@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class SwimmingTurtleView extends View {
@@ -19,6 +20,7 @@ public class SwimmingTurtleView extends View {
     //w&w caribbean rave
     //https://www.youtube.com/watch?v=t0thau7RIWA
     //dubstep but the carribean drum instead of the key board
+    private RelativeLayout mRelativeLayout;
 
     private Bitmap turtle[] = new Bitmap[2];
     private int turtleX = 100;
@@ -30,7 +32,6 @@ public class SwimmingTurtleView extends View {
 
     //THESE WILL BE BITMAPS LATER
     private int wormX, wormY, wormSpeed = 16;
-    private Paint wormPaint = new Paint();
 
     private int strawX, strawY, strawSpeed = 20;
     private Paint strawPaint = new Paint();
@@ -56,6 +57,7 @@ public class SwimmingTurtleView extends View {
 
     public SwimmingTurtleView(Context context){
         super(context);
+        mRelativeLayout = findViewById(R.id.relativeLayout);
 
         turtle[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
         turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
@@ -63,9 +65,6 @@ public class SwimmingTurtleView extends View {
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
         //NonPlayerCharachters
-        wormPaint.setColor(Color.YELLOW);
-        wormPaint.setAntiAlias(false);
-
         strawPaint.setColor(Color.RED);
         strawPaint.setAntiAlias(false);
 
@@ -145,7 +144,8 @@ public class SwimmingTurtleView extends View {
             wormX = canvasWidth + 21;
             wormY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
         }
-        canvas.drawCircle(wormX, wormY, 25, wormPaint);
+        //canvas.drawCircle(wormX, wormY, 25, wormPaint);
+        //canvas.draw;
 
         //straw logic
         if(collisionChecker(strawX,strawY)){
