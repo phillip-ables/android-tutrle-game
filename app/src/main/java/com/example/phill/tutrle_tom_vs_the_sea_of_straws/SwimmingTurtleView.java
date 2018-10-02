@@ -114,6 +114,13 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
                 false
         );
 
+
+
+
+        /*
+        THIS IS WHERE I SKIPPED TO MY OVERIDES AND UPDATES;
+         */
+
         //NonPlayerCharachters
         strawPaint.setColor(Color.RED);
         strawPaint.setAntiAlias(false);
@@ -136,6 +143,19 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
         score = 0;
         lifeCounterOFTurtle = 3;
+    }
+    @Override
+    public void run() {
+        while(playing){
+            long startFrameTime = System.currentTimeMillis();
+
+            update();
+            draw();
+
+            timeThisFrame = System.currentTimeMillis() - startFrameTime;
+            if(timeThisFrame >= 1)
+                fps = 1000/ timeThisFrame;
+        }
     }
 
     @Override
@@ -296,10 +316,5 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
             turtleSpeed = -22;
         }
         return true;
-    }
-
-    @Override
-    public void run() {
-
     }
 }
