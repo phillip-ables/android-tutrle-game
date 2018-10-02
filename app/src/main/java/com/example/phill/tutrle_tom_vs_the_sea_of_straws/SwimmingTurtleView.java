@@ -303,6 +303,10 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
     }
 
+    public void draw(){
+        
+    }
+
     public Rect frameToDraw(int frameWidth, int frameHeight){
         return new Rect (
                 0,
