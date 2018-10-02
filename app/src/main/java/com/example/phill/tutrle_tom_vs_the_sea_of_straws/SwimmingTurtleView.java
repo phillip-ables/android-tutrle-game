@@ -377,4 +377,19 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
         }
         return true;
     }
+
+    public void pause() {
+        playing = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            Log.e("Error:", "joining thread");
+        }
+    }
+
+    public void resume() {
+        playing = true;
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
 }
