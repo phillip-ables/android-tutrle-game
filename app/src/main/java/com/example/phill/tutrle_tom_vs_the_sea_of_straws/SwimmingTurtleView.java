@@ -93,12 +93,25 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
     private Bitmap life[] = new Bitmap[2];
 
     //draw functions
-    private Rect turtle_frameToDraw = frameToDraw(turtle_frameWidth, turtle_frameHeight);
+    //private Rect turtle_frameToDraw = frameToDraw(turtle_frameWidth, turtle_frameHeight);
     //im not sure if this needs to be here or just in the update function
-    private RectF turtle_whereToDraw = whereToDraw(turtleX, turtleY, turtle_frameWidth, turtle_frameHeight);
+    //private RectF turtle_whereToDraw = whereToDraw(turtleX, turtleY, turtle_frameWidth, turtle_frameHeight);
+    private Rect turtle_frameToDraw = new Rect(
+            0,
+            0,
+            turtle_frameWidth,
+            turtle_frameHeight
+    );
+    RectF turtle_whereToDraw = new RectF(
+            turtleX,
+            turtleY,
+            turtleX + turtle_frameWidth,
+            turtle_frameHeight
+    );
 
-    private Rect worm_frameToDraw = frameToDraw(worm_frameWidth, worm_frameHeight);
-    private RectF worm_whereToDraw = whereToDraw(wormX, wormY, worm_frameWidth, worm_frameHeight);
+
+    //private Rect worm_frameToDraw = frameToDraw(worm_frameWidth, worm_frameHeight);
+    //private RectF worm_whereToDraw = whereToDraw(wormX, wormY, worm_frameWidth, worm_frameHeight);
 
     public SwimmingTurtleView(Context context){
         super(context);
@@ -186,7 +199,7 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
         //HEARTS
         for (int i = 0; i < 3; i++){
-            int x = (int) (canvasWidth - 100 - (100 * i));
+            int x = (canvasWidth - 100 - (100 * i));
             int y = 10;
 
             if(i < lifeCounterOFTurtle){
@@ -307,23 +320,26 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
     public void draw(){
         if(ourHolder.getSurface().isValid()) {
             canvas = ourHolder.lockCanvas();
+            /*
+            canvas.drawColor(Color.argb(255, 26,128,182));
+            paint.setColor(Color.argb(255,249,129,0));
+            paint.setTextSize(45);
+            */
 
             turtle_whereToDraw.set(
-                    (int)turtleX,
+                    turtleX,
                     0,
-                    (int)turtleX + turtle_frameWidth,
+                    turtleX + turtle_frameWidth,
                     turtle_frameHeight
             );
 
             getCurrentFrame();
-
             canvas.drawBitmap(
                     bitmap_turtle,
                     turtle_frameToDraw,
                     turtle_whereToDraw,
                     paint
             );
-
             ourHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -356,7 +372,7 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
                 frameHeight
         );
 
-    };
+    }
     public RectF whereToDraw(int x, int y, int frameWidth, int frameHeight){
         return new RectF(
                 x,
