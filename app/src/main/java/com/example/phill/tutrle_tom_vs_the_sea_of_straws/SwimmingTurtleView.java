@@ -232,9 +232,12 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
         }
         wormX = wormX - wormSpeed;
         if(wormX < 0) {
-            wormX = canvasWidth + 21;
+            wormX = canvasWidth + worm_frameWidth;
             wormY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
         }
+
+        //THIS IS WHERE THE WORM WILL GO
+        //as soon as i test the game
 
 
         //this shall appear as a bitmap
@@ -319,8 +322,8 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
     }
 
     public boolean collisionChecker(int x, int y){
-        if(turtleX < x && x < (turtleX + ivTurtle.getWidth()) &&
-                turtleY < y && y < (turtleY + ivTurtle.getHeight())){
+        if(turtleX < x && x < (turtleX + bitmap_turtle.getWidth()) &&
+                turtleY < y && y < (turtleY + bitmap_turtle.getHeight())){
             return true;
         }
         return false;
