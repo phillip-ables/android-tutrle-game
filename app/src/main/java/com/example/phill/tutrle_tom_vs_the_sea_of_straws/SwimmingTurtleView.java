@@ -52,6 +52,7 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
     private int turtle_idleFrameCount = 2;
     private int turtle_frameCount;
     private int turtle_currentFrame = 0;
+    boolean isMoving = false;
 
     private int canvasWidth, canvasHeight;
 
@@ -101,13 +102,17 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
     public SwimmingTurtleView(Context context){
         super(context);
-        //TURTLE
         ourHolder = getHolder();
+        paint = new Paint();
 
-       // turtle[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
-       // turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
-
-        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        //backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        bitmap_turtle = BitmapFactory.decodeResource(this.getResources(), R.drawable.turtle_swim_350_245);
+        bitmap_turtle = Bitmap.createScaledBitmap(
+                bitmap_turtle,
+                turtle_frameWidth * turtle_currentFrame,
+                turtle_frameHeight,
+                false
+        );
 
         //NonPlayerCharachters
         strawPaint.setColor(Color.RED);
