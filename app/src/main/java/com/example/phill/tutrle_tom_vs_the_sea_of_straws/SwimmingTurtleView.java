@@ -7,66 +7,90 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class SwimmingTurtleView extends View {
+//this is pretty much a gameview
+public class SwimmingTurtleView extends View implements Runnable{
 
     //background music
     //w&w caribbean rave
     //https://www.youtube.com/watch?v=t0thau7RIWA
     //dubstep but the carribean drum instead of the key board
-    private RelativeLayout mRelativeLayout;
-    private ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    Thread gameThread = null;
+    SurfaceHolder ourHolder;  // when we use paint and canvas in thread
 
-    //private Bitmap turtle[] = new Bitmap[2];
-    private ImageView ivTurtle;
+    volatile boolean playing;
+    Canvas canvas;
+    Paint paint;
+    long fps;  //  game frame rate
+    private long timeThisFrame;  // helps calculate the fps
+    private long lastFrameChangeTime = 0;
+
+    private int frameLengthInMilliseconds = 150;  // animation speed;
+
+    Bitmap bitmap_turtle;
     private int turtleX = 100;
     private int turtleY;
     private int turtleSpeed;
+    // I dont like these hard coded values;
+    private int turtle_frameWidth = 350;
+    private int turtle_frameHeight = 150;
+    private int turtle_upFrameCoount = 4;
+    private int turtle_idleFrameCount = 2;
+    private int turtle_frameCount;
+    private int turtle_currentFrame = 0;
 
     private int canvasWidth, canvasHeight;
 
 
     //THESE WILL BE BITMAPS LATER
-    private ImageView ivWorm;
+    Bitmap bitmap_worm;
     private int wormX, wormY, wormSpeed = 16;
+    private int worm_frameWidth = 150;
+    private int worm_frameHeight = 50;
+    private int worm_frameCount = 4;
+    private int worm_currentFrame = 0;
 
-    private ImageView ivStraw;
+    Bitmap bitmap_straw;
     private int strawX, strawY, strawSpeed = 20;
     private Paint strawPaint = new Paint();
 
-    private ImageView ivMagicStraw;
+    Bitmap bitmap_magicWorm;
     private int magicWormX, magicWormY, magicWormSpeed = 32;
     private Paint magicWormPaint = new Paint();
 
     //this is going to have a hook case
     //then falls to its y,
     //then zooms off
-    private ImageView ivFlyingHook;
+    Bitmap bitmap_flyingHook;
     private int flyingHookX, flyingHookY, flyingHookSpeed = 35;
     private Paint flyingHookPaint = new Paint();
 
     //background that moves
-    private ImageView ivBackground;
+    Bitmap bitmap_background;
     private int backgroundX, backgroundY;
 
     private int score, lifeCounterOFTurtle;
 
     private boolean touch = false;
 
-    private Bitmap backgroundImage;
-
     private Paint scorePaint = new Paint();
 
     private Bitmap life[] = new Bitmap[2];
+
+    //draw functions
+    drawRect(int frameWidth, int frameHeight, int x, int y);
 
     public SwimmingTurtleView(Context context){
         super(context);
@@ -141,7 +165,7 @@ public class SwimmingTurtleView extends View {
 
         if(touch)
         {
-            ivTurtle.setImageResource(R.drawable.turtle_swim_up);
+            ivTurtle.setImageResource(R.drawable.turtle_swim_idle);
             //canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
             touch = false;
         }
@@ -162,10 +186,18 @@ public class SwimmingTurtleView extends View {
             wormX = canvasWidth + 21;
             wormY = (int) Math.floor(Math.random() * (maxTurtleY - minTurtleY) + minTurtleY);
         }
+
+
+        //this shall appear as a bitmap
+        //this is frame animation and will need a frame count so i shall return to this at a later date
+
+
+
+        //leftover code.
         //canvas.drawCircle(wormX, wormY, 25, wormPaint);
         //canvas.draw;
-        ivWorm.setImageResource(R.drawable.worm_swim);
-        lp.layoutAnimationParameters()
+        //ivWorm.setImageResource(R.drawable.worm_swim);
+        //lp.layoutAnimationParameters()
         //AnimationDrawable swimming_worm = (AnimationDrawable)ivWorm.getDrawable();
 
         //straw logic
@@ -219,9 +251,27 @@ public class SwimmingTurtleView extends View {
 
     }
 
+    public Rect frameToDraw(int frameWidth, int frameHeight){
+        return new Rect (
+                0,
+                0,
+                frameWidth,
+                frameHeight
+        );
+
+    };
+    public RectF whereToDraw(int x, int y, int frameWidth, int frameHeight){
+        return new RectF(
+                x,
+                y,
+                x + frameWidth,
+                frameHeight
+        );
+    }
+
     public boolean collisionChecker(int x, int y){
-        if(turtleX < x && x < (turtleX + turtle[0].getWidth()) &&
-                turtleY < y && y < (turtleY + turtle[0].getHeight())){
+        if(turtleX < x && x < (turtleX + ivTurtle.getWidth()) &&
+                turtleY < y && y < (turtleY + ivTurtle.getHeight())){
             return true;
         }
         return false;
@@ -236,5 +286,10 @@ public class SwimmingTurtleView extends View {
             turtleSpeed = -22;
         }
         return true;
+    }
+
+    @Override
+    public void run() {
+
     }
 }
