@@ -210,6 +210,7 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
             );
             //canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
             touch = false;
+            isMoving = true;
         }
         else
         {
@@ -304,7 +305,27 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
     }
 
     public void draw(){
-        
+        if(ourHolder.getSurface().isValid()) {
+            canvas = ourHolder.lockCanvas();
+
+            turtle_whereToDraw.set(
+                    (int)turtleX,
+                    0,
+                    (int)turtleX + turtle_frameWidth,
+                    turtle_frameHeight
+            );
+
+            getCurrentFrame();
+
+
+        }
+    }
+
+    public void getCurrentFrame() {
+        long time = System.currentTimeMillis();
+        if(time > lastFrameChangeTime + frameLengthInMilliseconds){
+
+        }
     }
 
     public Rect frameToDraw(int frameWidth, int frameHeight){
