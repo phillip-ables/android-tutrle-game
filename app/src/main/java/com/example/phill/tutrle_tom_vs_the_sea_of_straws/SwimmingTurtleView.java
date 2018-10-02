@@ -90,7 +90,12 @@ public class SwimmingTurtleView extends View implements Runnable{
     private Bitmap life[] = new Bitmap[2];
 
     //draw functions
-    drawRect(int frameWidth, int frameHeight, int x, int y);
+    private Rect turtle_frameToDraw = frameToDraw(turtle_frameWidth, turtle_frameHeight);
+    //im not sure if this needs to be here or just in the update function
+    private RectF turtle_whereToDraw = whereToDraw(turtleX, turtleY, turtle_frameWidth, turtle_frameHeight);
+
+    private Rect worm_frameToDraw = frameToDraw(worm_frameWidth, worm_frameHeight);
+    private RectF worm_whereToDraw = whereToDraw(wormX, wormY, worm_frameWidth, worm_frameHeight);
 
     public SwimmingTurtleView(Context context){
         super(context);
