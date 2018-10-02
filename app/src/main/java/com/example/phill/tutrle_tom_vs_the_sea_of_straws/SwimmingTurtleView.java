@@ -158,9 +158,13 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
         }
     }
 
+    //decided to change this all to the update function, good luck, fingers crossed
+    /*
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+    */
+    public void update(){
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
