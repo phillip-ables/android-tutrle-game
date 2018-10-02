@@ -105,8 +105,8 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
         ourHolder = getHolder();
         paint = new Paint();
 
-        //backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        bitmap_turtle = BitmapFactory.decodeResource(this.getResources(), R.drawable.turtle_swim_350_245);
+        bitmap_background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        bitmap_turtle = BitmapFactory.decodeResource(this.getResources(), R.drawable.turtle_swim_350_235);
         bitmap_turtle = Bitmap.createScaledBitmap(
                 bitmap_turtle,
                 turtle_frameWidth * turtle_currentFrame,
@@ -168,8 +168,8 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
-        int minTurtleY = ivTurtle.getHeight();
-        int maxTurtleY = canvasHeight - (ivTurtle.getHeight() );
+        int minTurtleY = bitmap_turtle.getHeight();
+        int maxTurtleY = canvasHeight - (bitmap_turtle.getHeight() );
         turtleY = turtleY + turtleSpeed;
 
         //Turtle Goes Off Screen
@@ -181,7 +181,7 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
         }
         turtleSpeed = turtleSpeed + 2;
 
-        canvas.drawBitmap(backgroundImage,0,0,null);
+        canvas.drawBitmap(bitmap_background,0,0,null);
         canvas.drawText("Score : " + score, 20,60,scorePaint);
 
         //HEARTS
@@ -199,13 +199,28 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
         if(touch)
         {
-            ivTurtle.setImageResource(R.drawable.turtle_swim_idle);
+            //need to do a draw swim so it runs the full animation
+            bitmap_turtle = BitmapFactory.decodeResource(this.getResources(),R.drawable.turtle_up_350_235);
+            turtle_frameCount = turtle_upFrameCoount;
+            bitmap_turtle = Bitmap.createScaledBitmap(
+                    bitmap_turtle,
+                    turtle_frameWidth * turtle_frameCount,
+                    turtle_frameHeight,
+                    false
+            );
             //canvas.drawBitmap(turtle[1], turtleX, turtleY, null);
             touch = false;
         }
         else
         {
-            ivTurtle.setImageResource(R.drawable.turtle_swim_idle);
+            bitmap_turtle = BitmapFactory.decodeResource(this.getResources(), R.drawable.turtle_swim_350_235);
+            turtle_frameCount = turtle_idleFrameCount;
+            bitmap_turtle = Bitmap.createScaledBitmap(
+                    bitmap_turtle,
+                    turtle_frameWidth * turtle_frameCount,
+                    turtle_frameHeight,
+                    false
+            );
             //canvas.drawBitmap(turtle[0], turtleX, turtleY, null);
         }
 
