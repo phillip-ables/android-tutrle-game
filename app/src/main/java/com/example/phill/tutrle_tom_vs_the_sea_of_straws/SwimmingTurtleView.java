@@ -317,7 +317,14 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
             getCurrentFrame();
 
+            canvas.drawBitmap(
+                    bitmap_turtle,
+                    turtle_frameToDraw,
+                    turtle_whereToDraw,
+                    paint
+            );
 
+            ourHolder.unlockCanvasAndPost(canvas);
         }
     }
 
