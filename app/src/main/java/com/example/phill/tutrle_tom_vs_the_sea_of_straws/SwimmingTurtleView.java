@@ -324,8 +324,21 @@ public class SwimmingTurtleView extends SurfaceView implements Runnable{
     public void getCurrentFrame() {
         long time = System.currentTimeMillis();
         if(time > lastFrameChangeTime + frameLengthInMilliseconds){
-
+            turtle_currentFrame++;
+            //first try for a one shot animation, wish me luck
+            if(isMoving){
+                lastFrameChangeTime = time;
+                if(turtle_currentFrame >= turtle_upFrameCoount)
+                    isMoving = false;
+            }else{
+                lastFrameChangeTime = time;
+                if(turtle_currentFrame >= turtle_idleFrameCount)
+                    turtle_currentFrame = 0;
+            }
         }
+
+        turtle_frameToDraw.left = turtle_currentFrame * turtle_frameWidth;
+        turtle_frameToDraw.right = turtle_frameToDraw.left + turtle_frameWidth;
     }
 
     public Rect frameToDraw(int frameWidth, int frameHeight){
