@@ -13,7 +13,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,7 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 //this is pretty much a gameview
-public class SwimmingTurtleView extends View implements Runnable{
+public class SwimmingTurtleView extends SurfaceView implements Runnable{
 
     //background music
     //w&w caribbean rave
@@ -99,10 +101,8 @@ public class SwimmingTurtleView extends View implements Runnable{
 
     public SwimmingTurtleView(Context context){
         super(context);
-        mRelativeLayout = findViewById(R.id.relativeLayout);
-
         //TURTLE
-        ivTurtle = new ImageView(context);
+        ourHolder = getHolder();
 
        // turtle[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
        // turtle[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
